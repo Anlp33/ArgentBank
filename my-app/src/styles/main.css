@@ -289,3 +289,8 @@ body {
     width: 200px;
   }
 }
+.email_error, .password_error, .message_error{
+  color: red;
+  font-style: italic;
+  font-size: 12px;
+}

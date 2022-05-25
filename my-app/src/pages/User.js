@@ -1,16 +1,19 @@
 import React from "react";
+import UserName from "../components/UserName";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function User() {
+  let navigate = useNavigate();
+  const isLogged = useSelector((state) => state.loggedReducer);
+
+  if (!isLogged) {
+    return navigate("/login");
+  }
+
   return (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          Tony Jarvis!
-        </h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+      <UserName />
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">

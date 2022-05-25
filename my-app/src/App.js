@@ -7,15 +7,14 @@ import Login from "./pages/Login";
 import User from "./pages/User";
 import { Routes, Route } from "react-router-dom";
 
-
 function App() {
   return (
     <div>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="user" element={<User />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user" element={<User />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
@@ -24,10 +23,3 @@ function App() {
 }
 
 export default App;
-
-  // <Routes>
-  //   <Route path="/" element={<Home />} />
-  //   {/* <Route path="login" element={<Login />} />
-  //       <Route path="user" element={<User />} />
-  //       <Route path="*" element={<Error />} /> */}
-  // </Routes>;
