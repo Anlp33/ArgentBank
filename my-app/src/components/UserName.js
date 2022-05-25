@@ -19,7 +19,7 @@ export default function UserName() {
   const handleChange = () => {
     // const token = localStorage.getItem("token");
     // updateProfile(token, newFirstName, newLastName);
-    dispatch(dataUser.firstName);
+    dispatch(updateProfileData(newFirstName, newLastName));
     setIsEditing(false);
   };
 
