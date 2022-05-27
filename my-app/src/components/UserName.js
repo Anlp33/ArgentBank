@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { updateProfileData } from "../redux/actions";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { updateProfile } from "../utils/apiFetch";
+import { getUserData } from "../redux/actions";
 
 export default function UserName() {
   const [newFirstName, setNewFirstName] = useState();
@@ -16,10 +16,13 @@ export default function UserName() {
 
   const dispatch = useDispatch();
 
-  const handleChange = () => {
-    // const token = localStorage.getItem("token");
-    // updateProfile(token, newFirstName, newLastName);
-    dispatch(updateProfileData(newFirstName, newLastName));
+   const handleChange = () => {
+    const token = localStorage.getItem("token");
+    const newUser = updateProfile(token, newFirstName, newLastName);
+    console.log(newUser);
+    dispatch(
+      getUserData(dataUser.body.newFirstName, dataUser.body.newLastName)
+    );
     setIsEditing(false);
   };
 
