@@ -35,10 +35,10 @@ export const getUser = async (token) => {
 
 /**
  * Update user profile
- * @param {*} token 
- * @param {*} firstname 
- * @param {*} lastname 
- * @returns 
+ * @param {*} token
+ * @param {*} firstname
+ * @param {*} lastname
+ * @returns
  */
 export const updateProfile = async (token, firstName, lastName) => {
   const response = await fetch(`${APIURL}/api/v1/user/profile`, {
@@ -46,11 +46,11 @@ export const updateProfile = async (token, firstName, lastName) => {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      body: JSON.stringify({
-        firstName,
-        lastName,
-      }),
     },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+    }),
   });
   return response.json();
 };

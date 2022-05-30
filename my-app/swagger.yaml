@@ -11,72 +11,6 @@ schemes:
 - "https"
 - "http"
 paths:
-  /user/login:
-    post:
-      tags:
-      - "User Module"
-      summary: "Login"
-      description: "API for Login"
-      # operationId: "createUser"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Login Payload"
-        required: true
-        schema:
-          $ref: "#/definitions/Login"
-      responses:
-        "200":
-          description: "Login Successfully"
-          schema:
-            $ref: "#/definitions/User"
-        "400":
-          description: "Invalid fields"
-        "404":
-          description: "Internal Server Error"
- 
- 
-  /user/signup:
-    post:
-      tags:
-      - "User Module"
-      summary: "Signup"
-      description: "API for Signup"
-      produces:
-      - "application/json"
-      parameters: 
-      - in: "body"
-        name: "body"
-        description: "Signup Payload"
-        required: true
-        schema:
-          $ref: "#/definitions/Signup"
-      responses:
-        "200":
-          description: "Signup Successfully"
-          schema:
-            $ref: "#/definitions/Signup"
-        "400":
-          description: "Invalid fields"
-        "404":
-          description: "Internal Server Error"
- 
-  /user/logout:
-    get:
-      tags:
-      - "User Module"
-      summary: "Logs out current logged in user session"
-      description: ""
-      operationId: "logoutUser"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-          
   /user/profile:
     post:
       security:
@@ -133,60 +67,119 @@ paths:
         "404":
           description: "Internal Server Error"
           
-  /user/transactions:
+  
+  /user/profile/{accountId}:
     get:
+      security:
+         - Bearer: []
       tags:
-        - "User Transactions"
-      summary: "User transactions"
-      description: "Shows user transactions of the month"
+         - "User Transactions"
+      summary: "User's account transactions" 
+      description: "Get user's account transactions"
+      produces:
+        - "application/json"
       parameters:
         - name: "Authorization"
           in: "header"
           description: "Attach Bearer JWT token"
           required: true
           type: "string"
+        - name: "accountId"
+          in: "path"
+          description: "User's Account ID"
+          required: true
+          type: integer
+       
+      responses:
+          '200':
+            description: "User transactions retrieved Successfully"
+            schema:
+              $ref: '#/definitions/UserAccount'
+          '400':
+            description: "Invalid Fields"
+          '404':
+            description: "Internal Server Error"
+          
+  /user/profile/{accountId}/{transactionID}:
+    get:
+      security: 
+        - Bearer: []
+      tags:
+        - "User account transaction details"
+      summary: "User account transaction details"
+      description: "Get account transaction details"
       produces:
         - "application/json"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Attach Bearer JWT token"
+          required: true
+          type: "string"
+        - name: "accountId"
+          in: "path"
+          description: "User's Account ID"
+          required: true
+          type: integer
+        - name: "transactionID"
+          in: "path"
+          description: "Transaction's ID"
+          required: true
+          type: integer
+            
       responses:
-        '200':
-          description: "User transactions retrieved Successfully"
-          schema:
-            $ref: '#/definitions/UserTransaction'
-        '400':
-          description: "Invalid Fields"
-        '500':
-          description: "Internal Server Error"
-    post:
+          '200':
+            description: "User account transactions details retrieved Successfully"
+            schema: 
+              $ref: '#/definitions/UserAccount'
+          '400':
+            description: "Invalid Fields"
+          '404':
+            description: "Internal Server Error"
+        
+    put:
       security:
         - Bearer: []
       tags:
-        - "User Transactions"
-      summary: "Update transactions information"
-      description: "Modify the transactions information"
-      parameters:
-        - name: "Authorization"
-          in: "header"
-          description: "Attach Bearer JWT token"
-          required: true
-          type: "string"
-        - name: "body"
-          in: "body"
-          description: "transaction payload"
-          required: true
-          schema:
-            $ref: '#/definitions/TransactionPayload'
+          - "User account transaction details" 
+      summary: "User account transaction details"
+      description: "Modify user account transaction details"
       produces:
-        - "application/json"
+          - "application/json"
+      parameters:
+          - name: "Authorization"
+            in: "header"
+            description: "Attach Bearer JWT token"
+            required: true
+            type: "string"
+          - name: "body"
+            in: "body"
+            description: "Update transaction details"
+            schema:
+              $ref: "#/definitions/UserTransactionDetails"
+            required: true
+          - name: "accountId"
+            in: "path"
+            description: "User's Account ID"
+            required: true
+            type: integer
+          - name: "transactionID"
+            in: "path"
+            description: "Transaction's ID"
+            required: true
+            type: integer
       responses:
-        '200':
-          description: "Transaction's infos updated successfully"
-          schema:
-            $ref: '#/definitions/TransactionModification'
-        '400':
-          description: "Account id is required."
-        '500':
-          description: "Internal Server Error"
-    
+          '200': 
+            description: "User account transaction details retrieved successfully"
+            schema: 
+              $ref: '#/definitions/UserAccount'
+        
+          '400':
+            description: "Invalid Fields"
+          '404': 
+            description: "Internal Server Error"
+            
+  
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -209,49 +202,42 @@ definitions:
         type: "string"
       Lastname:
         type: "string"
-  Login:
-    properties:
-      email:
-        type: "string"
-      password:
-        type: "string"
-
-  Signup:
-    properties:
-      email:
-        type: "string"
-      password:
-        type: "string"
-      firstname:
-        type: "string"
-      lastname: 
-        type: "string"
   
-  UserTransaction:
+  UserAccount:
     properties:
-      status:
-        type: "integer"
-      message:
+      date:
         type: "string"
-        example: "User transactions retrieved succesfully"
-      body:
-        type: "array"
-        
-  TransactionPayload:
-    properties:
-      transactionType:
+        description: "transaction date"
+      description:
+        type: "string"
+        description: "transaction description"
+      amount:
+        type: "integer"
+        description: "transaction amount"  
+      balance:
+        type: "integer"
+        description: "account balance"
+      type:
         type: "string"
         description: "transaction type"
-
-  TransactionModification:
-    properties:
-      status:
-        type: "integer"
-      message:
+      category:
         type: "string"
-        example: "User transaction updated succesfully"
-      body:
-        type: "array"
+        description: "transaction category"
+      notes:
+        type: "string"
+        description: "transaction notes"
+  
+  UserTransactionDetails:
+    type: object
+    properties:
+      Category:
+        type: "string"
+        description: "Transaction category"
+      Notes:
+        type: "string"
+        description: "Transaction Notes"
+      
+
 
         
 externalDocs:

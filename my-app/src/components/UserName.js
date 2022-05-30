@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { updateProfile } from "../utils/apiFetch";
 import { getUserData } from "../redux/actions";
@@ -16,19 +16,13 @@ export default function UserName() {
 
   const dispatch = useDispatch();
 
-   const handleChange = () => {
+  const handleChange = async () => {
     const token = localStorage.getItem("token");
-    const newUser = updateProfile(token, newFirstName, newLastName);
-    console.log(newUser);
-    dispatch(
-      getUserData(dataUser.body.newFirstName, dataUser.body.newLastName)
-    );
+    const newProfile = await updateProfile(token, newFirstName, newLastName);
+    console.log(newProfile);
+    dispatch(getUserData(newProfile.body.firstName, newProfile.body.lastName));
     setIsEditing(false);
   };
-
-  // dispatch(updateProfileData(newFirstName, newLastName));
-  // console.log(dataUser);
-  // setIsEditing(false);
 
   if (isLogged === false) {
     navigate("/login");
@@ -47,13 +41,17 @@ export default function UserName() {
               type="firstname"
               id="firstname"
               placeholder={dataUser.firstName}
-              onChange={(e) => setNewFirstName(e.target.value)}
+              onChange={(e) => {
+                setNewFirstName(e.target.value);
+              }}
             />
             <input
               type="lastname"
               id="lastname"
               placeholder={dataUser.lastName}
-              onChange={(e) => setNewLastName(e.target.value)}
+              onChange={(e) => {
+                setNewLastName(e.target.value);
+              }}
             />
           </div>
           <div className="buttons-edit">
