@@ -7,3 +7,5 @@ export const loggedOut = () => {
 export const getUserData = (firstName, lastName) => {
   return { type: "GET_USER_DATA", payload: {firstName, lastName} };
 };
+
+
