@@ -38,6 +38,7 @@ export default function UserName() {
           </h1>
           <div className="names-edit">
             <input
+              className="input"
               type="firstname"
               id="firstname"
               placeholder={dataUser.firstName}
@@ -46,6 +47,7 @@ export default function UserName() {
               }}
             />
             <input
+              className="input"
               type="lastname"
               id="lastname"
               placeholder={dataUser.lastName}
@@ -55,11 +57,11 @@ export default function UserName() {
             />
           </div>
           <div className="buttons-edit">
-            <button className="button-save" onClick={handleChange}>
+            <button className="button" onClick={handleChange}>
               Save
             </button>
             <button
-              className="button-cancel"
+              className="button"
               onClick={() => setIsEditing(false)}
             >
               Cancel

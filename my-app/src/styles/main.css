@@ -16,6 +16,9 @@ body {
 .main {
   flex: 1;
 }
+h1 {
+  padding-top: 30px;
+}
 
 .bg-dark {
   background-color: #12002b;
@@ -53,7 +56,7 @@ body {
 
 .main-nav-item {
   text-decoration: none;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 
 .main-nav-item:hover {
@@ -71,7 +74,7 @@ body {
 }
 
 .hero {
-  background-image: url('../assets/bank-tree.jpeg');
+  background-image: url("../assets/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -289,8 +292,20 @@ body {
     width: 200px;
   }
 }
-.email_error, .password_error, .message_error{
+.email_error,
+.password_error,
+.message_error {
   color: red;
   font-style: italic;
   font-size: 12px;
+}
+.userHeader {
+  display: flex;
+}
+.input {
+  margin: 30px 10px;
+}
+.button {
+  margin: 10px;
+  width: 60px;
 }

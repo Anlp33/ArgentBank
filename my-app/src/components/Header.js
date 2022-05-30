@@ -21,7 +21,7 @@ export default function Header() {
       </Link>
       <div>
         {isLogged ? (
-          <div>
+          <div className="userHeader">
             <div className="main-nav-item">
               <i className="fa fa-user-circle"></i>
               {userName.firstName}
