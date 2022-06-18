@@ -50,7 +50,7 @@ Once you run the `populate-db` script, you should have two users in your databas
 
 Clone the repository:
 
-`git clone https://github.com/Anlp33/Anne-laure-POIRE_11_17032022.git`
+`git clone https://github.com/Anlp33/Anne-laure-POIRE_13_09052022.git`
 
 Inside the front-end repository, install dependencies:
 
