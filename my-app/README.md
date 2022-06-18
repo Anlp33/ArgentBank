@@ -20,6 +20,31 @@ Phase 2: Transactions - This would be to specify the API endpoints needed for a 
 
 - NodeJS (version 12.18)
 - Npm
+- MongoDB Community Server (back-end)
+ 
+## Installing Back-End
+
+1. Clone the repository:
+`https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git`
+2. Open a terminal window in the cloned project
+3. Run the following commands:
+
+```bash
+# Install dependencies
+npm install
+
+# Start local dev server
+npm run dev:server
+
+# Populate database with two users
+npm run populate-db
+```
+
+Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
+
+## Populated Database Data
+
+Once you run the `populate-db` script, you should have two users in your database (Tony Stark and Steve Rogers).
 
 ## Installing Front-End
 
